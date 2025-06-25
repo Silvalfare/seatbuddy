@@ -48,9 +48,10 @@ class CustomFormTextField extends StatelessWidget {
             cursorHeight: 20,
             cursorWidth: 1,
             decoration: InputDecoration(
+              contentPadding: EdgeInsets.symmetric(vertical: 1, horizontal: 10),
               labelStyle: TextStyle(color: Colors.black),
               hintText: hintText,
-              hintStyle: TextStyle(color: Colors.black),
+              hintStyle: TextStyle(color: Color(0xffCECECE)),
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(

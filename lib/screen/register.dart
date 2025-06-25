@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:seatbuddy/screen/home.dart';
-import 'package:seatbuddy/screen/register.dart';
+import 'package:seatbuddy/screen/login.dart';
 import 'package:seatbuddy/utils/custom_elevated_button.dart';
 import 'package:seatbuddy/utils/custom_form_text_field.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
-  static const String id = "/login";
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
+  static const String id = "/register";
 
   @override
-  State<LoginScreen> createState() => LoginScreenState();
+  State<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class LoginScreenState extends State<LoginScreen> {
+class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController emailController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -40,7 +39,7 @@ class LoginScreenState extends State<LoginScreen> {
               children: [
                 SizedBox(height: 48),
                 Text(
-                  "Let's get you back in",
+                  "Let's get you started",
                   style: TextStyle(
                     fontFamily: 'segoeUI',
                     fontSize: 18,
@@ -48,6 +47,12 @@ class LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 SizedBox(height: 30),
+                CustomFormTextField(
+                  controller: emailController,
+                  title: 'Full Name',
+                  hintText: 'Bob Smith',
+                ),
+                SizedBox(height: 20),
                 CustomFormTextField(
                   controller: emailController,
                   title: 'Email Address',
@@ -60,22 +65,13 @@ class LoginScreenState extends State<LoginScreen> {
                   hintText: '********',
                 ),
                 SizedBox(height: 30),
-                CustomElevatedButton(
-                  text: 'Login',
-                  onPressed: () {
-                    Navigator.pushNamedAndRemoveUntil(
-                      context,
-                      HomeScreen.id,
-                      (route) => false,
-                    );
-                  },
-                ),
+                CustomElevatedButton(text: 'Register'),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "Don't have an account?",
+                      'Already a user?',
                       style: TextStyle(
                         color: Color(0xff5E5E5E),
                         fontWeight: FontWeight.bold,
@@ -87,11 +83,11 @@ class LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (_) => RegisterScreen()),
+                          MaterialPageRoute(builder: (_) => LoginScreen()),
                         );
                       },
                       child: Text(
-                        'Sign Up',
+                        'Sign in',
                         style: TextStyle(
                           decoration: TextDecoration.underline,
                           color: Colors.black,
@@ -103,7 +99,7 @@ class LoginScreenState extends State<LoginScreen> {
                     ),
                   ],
                 ),
-                SizedBox(height: 240),
+                SizedBox(height: 150),
                 Image.asset('assets/images/Frame.png'),
               ],
             ),

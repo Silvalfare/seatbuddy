@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:seatbuddy/screen/edit_profile.dart';
+import 'package:seatbuddy/screen/home.dart';
+import 'package:seatbuddy/screen/landing.dart';
 import 'package:seatbuddy/screen/login.dart';
+import 'package:seatbuddy/screen/profile.dart';
+import 'package:seatbuddy/screen/register.dart';
+import 'package:seatbuddy/screen/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,6 +18,17 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SplashScreen(),
+        RegisterScreen.id: (context) => RegisterScreen(),
+        LoginScreen.id: (context) => LoginScreen(),
+        HomeScreen.id: (context) => HomeScreen(),
+        LandingScreen.id: (context) => LandingScreen(),
+        ProfileScreen.id: (context) => ProfileScreen(),
+        EditProfileScreen.id: (context) => EditProfileScreen(),
+      },
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -31,7 +48,7 @@ class MyApp extends StatelessWidget {
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.white),
       ),
-      home: const LoginScreen(),
+      // home: const EditProfileScreen(),
     );
   }
 }
