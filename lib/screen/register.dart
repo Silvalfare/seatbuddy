@@ -25,7 +25,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           title: Text(
             'SeatBuddy',
             style: TextStyle(
-              fontSize: 32,
+              fontSize: 33,
               fontFamily: 'segoeUI',
               fontWeight: FontWeight.w700,
             ),
@@ -42,7 +42,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   "Let's get you started",
                   style: TextStyle(
                     fontFamily: 'segoeUI',
-                    fontSize: 18,
+                    fontSize: 19,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -76,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         color: Color(0xff5E5E5E),
                         fontWeight: FontWeight.bold,
                         fontFamily: 'segoeUI',
-                        fontSize: 16,
+                        fontSize: 17,
                       ),
                     ),
                     TextButton(
@@ -93,7 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'segoeUI',
-                          fontSize: 16,
+                          fontSize: 17,
                         ),
                       ),
                     ),

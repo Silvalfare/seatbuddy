@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:seatbuddy/screen/profile.dart';
 
 class ContentScreen extends StatefulWidget {
   const ContentScreen({super.key});
@@ -12,6 +11,7 @@ class _ContentScreenState extends State<ContentScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.black,
         centerTitle: true,
@@ -19,7 +19,7 @@ class _ContentScreenState extends State<ContentScreen> {
           'Sign up for an account to receive 2% off your bill on every reservation!',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 11,
+            fontSize: 12,
             fontWeight: FontWeight.bold,
           ),
         ),
@@ -36,23 +36,15 @@ class _ContentScreenState extends State<ContentScreen> {
                   children: [
                     Text(
                       'Welcome to SeatBuddy',
-                      style: TextStyle(fontSize: 14, fontFamily: 'segoeUI'),
+                      style: TextStyle(fontSize: 15, fontFamily: 'segoeUI'),
                     ),
                     SizedBox(width: 132),
                     Image.asset('assets/images/divider.png'),
                     SizedBox(width: 11),
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.pushReplacementNamed(
-                          context,
-                          ProfileScreen.id,
-                        );
-                      },
-                      child: CircleAvatar(
-                        backgroundColor: Colors.black,
-                        radius: 16,
-                        child: Icon(Icons.person, color: Colors.white),
-                      ),
+                    CircleAvatar(
+                      backgroundColor: Colors.black,
+                      radius: 16,
+                      child: Icon(Icons.person, color: Colors.white),
                     ),
                   ],
                 ),
@@ -66,16 +58,16 @@ class _ContentScreenState extends State<ContentScreen> {
                         text: 'Our ',
                         style: TextStyle(
                           color: Color(0xff5E5E5E),
-                          fontSize: 18,
+                          fontSize: 19,
                           fontFamily: 'segoeUI',
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       TextSpan(
-                        text: 'Restaurants',
+                        text: 'Menu',
                         style: TextStyle(
                           color: Colors.black,
-                          fontSize: 18,
+                          fontSize: 19,
                           fontFamily: 'segoeUI',
                           fontWeight: FontWeight.bold,
                         ),
@@ -85,42 +77,53 @@ class _ContentScreenState extends State<ContentScreen> {
                 ),
               ),
               Divider(indent: 20, endIndent: 20, color: Colors.black),
-              GridView.builder(
-                physics: NeverScrollableScrollPhysics(),
+              ListView.builder(
                 shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemCount: 9,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: 10,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
-                        horizontal: 5,
                         vertical: 5,
+                        horizontal: 20,
                       ),
-                      child: Card(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Container(
+                        width: 350,
+                        height: 75,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          shape: BoxShape.rectangle,
+                          border: Border.all(color: Colors.black),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             ClipRRect(
+                              borderRadius: BorderRadius.all(
+                                Radius.elliptical(15, 15),
+                              ),
                               child: Image.asset(
                                 'assets/images/splash.png',
-                                fit: BoxFit.cover,
-                                height: 100,
-                                width: double.infinity,
+                                width: 80,
+                                height: 55,
                               ),
                             ),
                             Padding(
-                              padding: const EdgeInsets.only(left: 7, top: 10),
-                              child: Text(
-                                'Menu Name',
-                                style: TextStyle(
-                                  color: Color(0xff5E5E5E),
-                                  fontFamily: 'segoeUI',
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('Menu Name'),
+                                  Text('Menu Description'),
+                                ],
                               ),
+                            ),
+                            Spacer(),
+                            Padding(
+                              padding: const EdgeInsets.only(right: 10),
+                              child: Text('Price'),
                             ),
                           ],
                         ),

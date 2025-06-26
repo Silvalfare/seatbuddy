@@ -27,6 +27,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
       body: _screen[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white,
+        type: BottomNavigationBarType.fixed,
+        elevation: 2,
         currentIndex: currentIndex,
         onTap: (value) {
           setState(() {
@@ -35,12 +38,12 @@ class _HomeScreenState extends State<HomeScreen> {
         },
         unselectedLabelStyle: TextStyle(
           color: Color(0xff5E5E5E),
-          fontSize: 10,
+          fontSize: 11,
           fontFamily: 'segoeUI',
         ),
         selectedLabelStyle: TextStyle(
           color: Colors.black,
-          fontSize: 10,
+          fontSize: 11,
           fontFamily: 'segoeUI',
         ),
         selectedItemColor: Colors.black,

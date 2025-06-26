@@ -28,7 +28,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 'Your Profile',
                 style: TextStyle(
                   fontFamily: 'segoeUI',
-                  fontSize: 16,
+                  fontSize: 17,
                   fontWeight: FontWeight.bold,
                 ),
               ),

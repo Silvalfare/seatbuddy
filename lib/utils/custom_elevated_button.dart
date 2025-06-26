@@ -40,7 +40,7 @@ class CustomElevatedButton extends StatelessWidget {
             text,
             style: TextStyle(
               fontFamily: 'SegoeUI',
-              fontSize: 15,
+              fontSize: 16,
               fontWeight: FontWeight.bold,
               color: textColor,
             ),

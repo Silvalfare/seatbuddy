@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:seatbuddy/screen/edit_profile.dart';
-import 'package:seatbuddy/screen/home.dart';
 import 'package:seatbuddy/screen/landing.dart';
 import 'package:seatbuddy/utils/custom_elevated_button.dart';
 
@@ -24,17 +23,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               'Your Profile',
               style: TextStyle(
                 fontFamily: 'segoeUI',
-                fontSize: 16,
+                fontSize: 17,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            Spacer(),
-            IconButton(
-              onPressed: () {
-                Navigator.pushReplacementNamed(context, HomeScreen.id);
-              },
-              icon: Icon(Icons.exit_to_app),
-            ),
+            // Spacer(),
+            // IconButton(
+            //   onPressed: () {
+            //     Navigator.pushReplacementNamed(context, HomeScreen.id);
+            //   },
+            //   icon: Icon(Icons.exit_to_app),
+            // ),
           ],
         ),
         bottom: PreferredSize(
@@ -54,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: Text(
               'Edit Profile',
               style: TextStyle(
-                fontSize: 10,
+                fontSize: 11,
                 color: Colors.black,
                 decoration: TextDecoration.underline,
               ),
@@ -63,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Text(
             'Bob Smith',
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 17,
               fontWeight: FontWeight.bold,
               fontFamily: 'segoeUI',
             ),
@@ -72,7 +71,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Text(
             'bob@gmail.com',
             style: TextStyle(
-              fontSize: 14,
+              fontSize: 15,
               fontWeight: FontWeight.bold,
               color: Colors.grey,
             ),

@@ -28,7 +28,7 @@ class CustomFormTextField extends StatelessWidget {
         Text(
           title,
           style: TextStyle(
-            fontSize: 14,
+            fontSize: 15,
             fontFamily: 'segoeUI',
             fontWeight: FontWeight.w500,
           ),
