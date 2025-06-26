@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:seatbuddy/screen/profile.dart';
 import 'package:seatbuddy/utils/custom_elevated_button.dart';
 import 'package:seatbuddy/utils/custom_form_text_field.dart';
 
@@ -21,6 +20,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
           title: Row(
             children: [
@@ -35,7 +35,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               Spacer(),
               IconButton(
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, ProfileScreen.id);
+                  Navigator.pop(context);
                 },
                 icon: Icon(Icons.exit_to_app),
               ),
@@ -68,7 +68,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             CustomElevatedButton(
               text: 'Confirm',
               onPressed: () {
-                Navigator.pushReplacementNamed(context, ProfileScreen.id);
+                Navigator.pop(context);
               },
             ),
           ],

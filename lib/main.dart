@@ -5,6 +5,7 @@ import 'package:seatbuddy/screen/landing.dart';
 import 'package:seatbuddy/screen/login.dart';
 import 'package:seatbuddy/screen/profile.dart';
 import 'package:seatbuddy/screen/register.dart';
+import 'package:seatbuddy/screen/reserve.dart';
 import 'package:seatbuddy/screen/splash.dart';
 
 void main() {
@@ -27,6 +28,7 @@ class MyApp extends StatelessWidget {
         LandingScreen.id: (context) => LandingScreen(),
         ProfileScreen.id: (context) => ProfileScreen(),
         EditProfileScreen.id: (context) => EditProfileScreen(),
+        ReserveScreen.id: (context) => ReserveScreen(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

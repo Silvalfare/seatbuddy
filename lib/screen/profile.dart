@@ -48,7 +48,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Center(child: CircleAvatar(radius: 50, backgroundColor: Colors.grey)),
           TextButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, EditProfileScreen.id);
+              Navigator.pushNamed(context, EditProfileScreen.id);
             },
             child: Text(
               'Edit Profile',

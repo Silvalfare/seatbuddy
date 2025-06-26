@@ -31,12 +31,15 @@ class _ContentScreenState extends State<ContentScreen> {
             children: [
               Padding(
                 padding: const EdgeInsets.only(left: 30, top: 16),
-
                 child: Row(
                   children: [
                     Text(
                       'Welcome to SeatBuddy',
-                      style: TextStyle(fontSize: 15, fontFamily: 'segoeUI'),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'segoeUI',
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     SizedBox(width: 132),
                     Image.asset('assets/images/divider.png'),
@@ -78,9 +81,10 @@ class _ContentScreenState extends State<ContentScreen> {
               ),
               Divider(indent: 20, endIndent: 20, color: Colors.black),
               ListView.builder(
+                padding: EdgeInsets.only(bottom: 70),
                 shrinkWrap: true,
                 physics: NeverScrollableScrollPhysics(),
-                itemCount: 10,
+                itemCount: 11,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
                     child: Padding(
