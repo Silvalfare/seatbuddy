@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seatbuddy/screen/login.dart';
+import 'package:seatbuddy/screen/auth/login.dart';
 import 'package:seatbuddy/utils/custom_elevated_button.dart';
 import 'package:seatbuddy/utils/custom_form_text_field.dart';
 

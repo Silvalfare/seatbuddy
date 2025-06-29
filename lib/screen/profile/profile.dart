@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:seatbuddy/screen/edit_profile.dart';
-import 'package:seatbuddy/screen/landing.dart';
+import 'package:seatbuddy/screen/profile/edit_profile.dart';
+import 'package:seatbuddy/screen/auth/landing.dart';
 import 'package:seatbuddy/utils/custom_elevated_button.dart';
 
 class ProfileScreen extends StatefulWidget {

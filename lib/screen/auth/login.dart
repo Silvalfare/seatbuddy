@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seatbuddy/screen/home.dart';
-import 'package:seatbuddy/screen/register.dart';
+import 'package:seatbuddy/screen/auth/register.dart';
 import 'package:seatbuddy/utils/custom_elevated_button.dart';
 import 'package:seatbuddy/utils/custom_form_text_field.dart';
 

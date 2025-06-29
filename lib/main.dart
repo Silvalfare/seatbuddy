@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:seatbuddy/screen/edit_profile.dart';
+import 'package:seatbuddy/screen/detail_menu.dart';
+import 'package:seatbuddy/screen/profile/edit_profile.dart';
 import 'package:seatbuddy/screen/home.dart';
-import 'package:seatbuddy/screen/landing.dart';
-import 'package:seatbuddy/screen/login.dart';
-import 'package:seatbuddy/screen/profile.dart';
-import 'package:seatbuddy/screen/register.dart';
+import 'package:seatbuddy/screen/auth/landing.dart';
+import 'package:seatbuddy/screen/auth/login.dart';
+import 'package:seatbuddy/screen/profile/profile.dart';
+import 'package:seatbuddy/screen/auth/register.dart';
 import 'package:seatbuddy/screen/reserve.dart';
-import 'package:seatbuddy/screen/splash.dart';
+import 'package:seatbuddy/screen/auth/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         ProfileScreen.id: (context) => ProfileScreen(),
         EditProfileScreen.id: (context) => EditProfileScreen(),
         ReserveScreen.id: (context) => ReserveScreen(),
+        DetailMenuScreen.id: (context) => DetailMenuScreen(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

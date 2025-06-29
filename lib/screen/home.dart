@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:seatbuddy/screen/content.dart';
 import 'package:seatbuddy/screen/history.dart';
 import 'package:seatbuddy/screen/notifications.dart';
-import 'package:seatbuddy/screen/profile.dart';
+import 'package:seatbuddy/screen/profile/profile.dart';
 import 'package:seatbuddy/screen/reserve.dart';
 
 class HomeScreen extends StatefulWidget {

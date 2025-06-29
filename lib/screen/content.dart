@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:seatbuddy/screen/detail_menu.dart';
 
 class ContentScreen extends StatefulWidget {
   const ContentScreen({super.key});
@@ -87,6 +88,9 @@ class _ContentScreenState extends State<ContentScreen> {
                 itemCount: 11,
                 itemBuilder: (BuildContext context, int index) {
                   return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, DetailMenuScreen.id);
+                    },
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                         vertical: 5,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:seatbuddy/screen/landing.dart';
+import 'package:seatbuddy/screen/auth/landing.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
