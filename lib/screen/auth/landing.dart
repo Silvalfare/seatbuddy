@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:seatbuddy/screen/login.dart';
-import 'package:seatbuddy/screen/register.dart';
+import 'package:seatbuddy/screen/auth/login.dart';
+import 'package:seatbuddy/screen/auth/register.dart';
 import 'package:seatbuddy/utils/custom_elevated_button.dart';
 
 class LandingScreen extends StatefulWidget {

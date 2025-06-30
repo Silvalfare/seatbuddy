@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:seatbuddy/screen/content.dart';
 import 'package:seatbuddy/screen/history.dart';
 import 'package:seatbuddy/screen/notifications.dart';
-import 'package:seatbuddy/screen/profile.dart';
+import 'package:seatbuddy/screen/profile/profile.dart';
 import 'package:seatbuddy/screen/reserve.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -69,30 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
             label: 'More',
           ),
         ],
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: SizedBox(
-        width: 200,
-        height: 50,
-        child: FloatingActionButton(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          backgroundColor: Colors.black,
-
-          foregroundColor: Colors.white,
-          onPressed: () {
-            Navigator.pushNamed(context, ReserveScreen.id);
-          },
-          child: Text(
-            'Reserve Here',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'segoeUI',
-            ),
-          ),
-        ),
       ),
     );
   }

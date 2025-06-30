@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:seatbuddy/screen/edit_profile.dart';
-import 'package:seatbuddy/screen/landing.dart';
+import 'package:seatbuddy/api/user_api.dart';
+import 'package:seatbuddy/screen/profile/edit_profile.dart';
+import 'package:seatbuddy/screen/auth/landing.dart';
 import 'package:seatbuddy/utils/custom_elevated_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -11,6 +13,24 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  final UserService userService = UserService();
+  String? name;
+  String? email;
+
+  @override
+  void initState() {
+    super.initState();
+    getProfile();
+  }
+
+  Future<void> getProfile() async {
+    final userData = await userService.getUser();
+    setState(() {
+      name = userData['data']['name'];
+      email = userData['data']['email'];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,13 +47,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            // Spacer(),
-            // IconButton(
-            //   onPressed: () {
-            //     Navigator.pushReplacementNamed(context, HomeScreen.id);
-            //   },
-            //   icon: Icon(Icons.exit_to_app),
-            // ),
           ],
         ),
         bottom: PreferredSize(
@@ -45,10 +58,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: 20),
-          Center(child: CircleAvatar(radius: 50, backgroundColor: Colors.grey)),
+          Center(
+            child: CircleAvatar(
+              radius: 50,
+              backgroundColor: Colors.grey,
+              child: Icon(Icons.person, color: Colors.white, size: 75),
+            ),
+          ),
           TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, EditProfileScreen.id);
+            onPressed: () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => EditProfileScreen(
+                    initialName: name,
+                    // initialEmail: email
+                  ),
+                ),
+              );
+              if (result == true) {
+                getProfile();
+              }
             },
             child: Text(
               'Edit Profile',
@@ -60,7 +90,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
           ),
           Text(
-            'Bob Smith',
+            "${name ?? '-'}",
             style: TextStyle(
               fontSize: 17,
               fontWeight: FontWeight.bold,
@@ -69,21 +99,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           SizedBox(height: 10),
           Text(
-            'bob@gmail.com',
+            '${email ?? '-'}',
             style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.bold,
               color: Colors.grey,
             ),
           ),
-          // Divider(indent: 15, endIndent: 15, color: Colors.black),
-          // Text('Your Savings'),
-          // Divider(indent: 15, endIndent: 15, color: Colors.black),
+
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 110, vertical: 25),
             child: CustomElevatedButton(
               text: 'Logout',
-              onPressed: () {
+              onPressed: () async {
+                final prefs = await SharedPreferences.getInstance();
+                await prefs.remove('auth_token');
                 Navigator.pushNamedAndRemoveUntil(
                   context,
                   LandingScreen.id,

@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:seatbuddy/api/menu_api.dart';
+import 'package:seatbuddy/model/menu/menu_model.dart';
+import 'package:seatbuddy/screen/add_menu.dart';
+import 'package:seatbuddy/screen/detail_menu.dart';
+import 'package:seatbuddy/screen/reserve.dart';
 
 class ContentScreen extends StatefulWidget {
   const ContentScreen({super.key});
@@ -8,6 +13,14 @@ class ContentScreen extends StatefulWidget {
 }
 
 class _ContentScreenState extends State<ContentScreen> {
+  late Future<List<MenuModel>> _menus;
+
+  @override
+  void initState() {
+    super.initState();
+    _menus = MenuApi.fetchMenus();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,98 +58,176 @@ class _ContentScreenState extends State<ContentScreen> {
                     Image.asset('assets/images/divider.png'),
                     SizedBox(width: 11),
                     CircleAvatar(
-                      backgroundColor: Colors.black,
+                      backgroundColor: Colors.grey,
                       radius: 16,
                       child: Icon(Icons.person, color: Colors.white),
                     ),
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30, top: 35, bottom: 10),
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Our ',
-                        style: TextStyle(
-                          color: Color(0xff5E5E5E),
-                          fontSize: 19,
-                          fontFamily: 'segoeUI',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      TextSpan(
-                        text: 'Menu',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 19,
-                          fontFamily: 'segoeUI',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Divider(indent: 20, endIndent: 20, color: Colors.black),
-              ListView.builder(
-                padding: EdgeInsets.only(bottom: 70),
-                shrinkWrap: true,
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: 11,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 5,
-                        horizontal: 20,
-                      ),
-                      child: Container(
-                        width: 350,
-                        height: 75,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          shape: BoxShape.rectangle,
-                          border: Border.all(color: Colors.black),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.all(
-                                Radius.elliptical(15, 15),
-                              ),
-                              child: Image.asset(
-                                'assets/images/splash.png',
-                                width: 80,
-                                height: 55,
-                              ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 30,
+                      top: 35,
+                      bottom: 10,
+                    ),
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Our ',
+                            style: TextStyle(
+                              color: Color(0xff5E5E5E),
+                              fontSize: 19,
+                              fontFamily: 'segoeUI',
+                              fontWeight: FontWeight.bold,
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('Menu Name'),
-                                  Text('Menu Description'),
-                                ],
-                              ),
+                          ),
+                          TextSpan(
+                            text: 'Menu',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 19,
+                              fontFamily: 'segoeUI',
+                              fontWeight: FontWeight.bold,
                             ),
-                            Spacer(),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: Text('Price'),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
+                  ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 35, right: 10),
+                    child: IconButton(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => AddMenuScreen()),
+                        ).then((value) {
+                          if (value == true) {
+                            setState(() {
+                              _menus =
+                                  MenuApi.fetchMenus(); // Refresh setelah kembali
+                            });
+                          }
+                        });
+                      },
+                      icon: Icon(Icons.add),
+                    ),
+                  ),
+                ],
+              ),
+              Divider(indent: 20, endIndent: 20, color: Colors.black),
+              FutureBuilder<List<MenuModel>>(
+                future: _menus,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Center(child: Text('Gagal memuat menu'));
+                  } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                    return Center(child: Text('Menu kosong'));
+                  }
+
+                  final menus = snapshot.data!;
+                  return ListView.builder(
+                    padding: EdgeInsets.only(bottom: 70),
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: menus.length,
+                    itemBuilder: (context, index) {
+                      final menu = menus[index];
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => DetailMenuScreen(menu: menu),
+                            ),
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 5,
+                            horizontal: 20,
+                          ),
+                          child: Container(
+                            width: 350,
+                            height: 75,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.black),
+                            ),
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 5),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      menu.imageUrl,
+                                      width: 80,
+                                      height: 65,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(width: 10),
+                                Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(menu.name),
+                                    // Text(
+                                    //   menu.description,
+
+                                    //   overflow: TextOverflow.ellipsis,
+                                    // ),
+                                  ],
+                                ),
+                                Spacer(),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: Text('Rp ${menu.price}'),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   );
                 },
               ),
             ],
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: SizedBox(
+        width: 200,
+        height: 50,
+        child: FloatingActionButton(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          backgroundColor: Colors.black,
+
+          foregroundColor: Colors.white,
+          onPressed: () {
+            Navigator.pushNamed(context, ReserveScreen.id);
+          },
+          child: Text(
+            'Reserve Here',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'segoeUI',
+            ),
           ),
         ),
       ),
