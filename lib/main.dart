@@ -33,7 +33,6 @@ class MyApp extends StatelessWidget {
         ProfileScreen.id: (context) => ProfileScreen(),
         EditProfileScreen.id: (context) => EditProfileScreen(),
         ReserveScreen.id: (context) => ReserveScreen(),
-        DetailMenuScreen.id: (context) => DetailMenuScreen(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

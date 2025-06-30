@@ -6,6 +6,28 @@ import 'package:seatbuddy/model/menu/menu_model.dart';
 import 'package:seatbuddy/services/preference.dart';
 
 class MenuApi {
+  static Future<bool> createMenu({
+    required String name,
+    required String description,
+    required int price,
+    required String imageUrl,
+  }) async {
+    final token = await SharedPreference.getAuthToken();
+
+    final response = await http.post(
+      Uri.parse(Endpoint.menus),
+      headers: {'Accept': 'application/json', 'Authorization': 'Bearer $token'},
+      body: {
+        'name': name,
+        'description': description,
+        'price': price.toString(),
+        'image_url': imageUrl,
+      },
+    );
+
+    return response.statusCode == 200;
+  }
+
   static Future<List<MenuModel>> fetchMenus() async {
     final token = await SharedPreference.getAuthToken();
     final response = await http.get(
@@ -19,6 +41,16 @@ class MenuApi {
       return jsonList.map((e) => MenuModel.fromJson(e)).toList();
     } else {
       throw Exception('Gagal memuat data menu');
+    }
+  }
+
+  static Future<MenuModel> fetchMenuById(int id) async {
+    final response = await http.get(Uri.parse('${Endpoint.menus}/$id'));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body)['data'];
+      return MenuModel.fromJson(data);
+    } else {
+      throw Exception('Failed to load menu');
     }
   }
 }

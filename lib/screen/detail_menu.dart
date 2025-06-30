@@ -1,16 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:seatbuddy/api/menu_api.dart';
+import 'package:seatbuddy/model/menu/menu_model.dart';
+import 'package:seatbuddy/screen/add_menu.dart';
 
 class DetailMenuScreen extends StatefulWidget {
-  const DetailMenuScreen({super.key});
+  const DetailMenuScreen({super.key, required this.menu});
   static const String id = '/detail';
+
+  final MenuModel menu;
 
   @override
   State<DetailMenuScreen> createState() => _DetailMenuScreenState();
 }
 
 class _DetailMenuScreenState extends State<DetailMenuScreen> {
+  MenuModel? _menu;
+
+  @override
+  void initState() {
+    super.initState();
+    _menu = widget.menu;
+  }
+
+  Future<void> _refreshMenu() async {
+    final updatedMenu = await MenuApi.fetchMenuById(widget.menu.id);
+    setState(() {
+      _menu = updatedMenu;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final menu = _menu!;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -19,6 +40,20 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
+        actions: [
+          IconButton(
+            onPressed: () async {
+              final result = await Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => AddMenuScreen(menu: menu)),
+              );
+              if (result == true) {
+                await _refreshMenu();
+              }
+            },
+            icon: Icon(Icons.edit),
+          ),
+        ],
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -30,7 +65,7 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
               height: 250,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage('assets/images/splash.png'),
+                  image: NetworkImage(menu.imageUrl),
                   fit: BoxFit.cover,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -40,7 +75,7 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Text(
-              'Nama Makanan',
+              menu.name,
               style: TextStyle(
                 fontSize: 25,
                 fontFamily: 'segoeUI',
@@ -51,16 +86,13 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
           Padding(
             padding: const EdgeInsets.only(left: 15),
             child: Text(
-              '\$24',
+              'Rp${menu.price}',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
-            child: Text(
-              'Description Description Description Description Description Description Description Description Description Description ',
-              style: TextStyle(fontSize: 16),
-            ),
+            child: Text(menu.description, style: TextStyle(fontSize: 16)),
           ),
         ],
       ),

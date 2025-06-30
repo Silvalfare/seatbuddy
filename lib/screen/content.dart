@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seatbuddy/api/menu_api.dart';
 import 'package:seatbuddy/model/menu/menu_model.dart';
+import 'package:seatbuddy/screen/add_menu.dart';
 import 'package:seatbuddy/screen/detail_menu.dart';
 import 'package:seatbuddy/screen/reserve.dart';
 
@@ -64,32 +65,60 @@ class _ContentScreenState extends State<ContentScreen> {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(left: 30, top: 35, bottom: 10),
-                child: RichText(
-                  text: TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'Our ',
-                        style: TextStyle(
-                          color: Color(0xff5E5E5E),
-                          fontSize: 19,
-                          fontFamily: 'segoeUI',
-                          fontWeight: FontWeight.bold,
-                        ),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      left: 30,
+                      top: 35,
+                      bottom: 10,
+                    ),
+                    child: RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: 'Our ',
+                            style: TextStyle(
+                              color: Color(0xff5E5E5E),
+                              fontSize: 19,
+                              fontFamily: 'segoeUI',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          TextSpan(
+                            text: 'Menu',
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 19,
+                              fontFamily: 'segoeUI',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
-                      TextSpan(
-                        text: 'Menu',
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 19,
-                          fontFamily: 'segoeUI',
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 35, right: 10),
+                    child: IconButton(
+                      onPressed: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (_) => AddMenuScreen()),
+                        ).then((value) {
+                          if (value == true) {
+                            setState(() {
+                              _menus =
+                                  MenuApi.fetchMenus(); // Refresh setelah kembali
+                            });
+                          }
+                        });
+                      },
+                      icon: Icon(Icons.add),
+                    ),
+                  ),
+                ],
               ),
               Divider(indent: 20, endIndent: 20, color: Colors.black),
               FutureBuilder<List<MenuModel>>(
@@ -113,7 +142,12 @@ class _ContentScreenState extends State<ContentScreen> {
                       final menu = menus[index];
                       return GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, DetailMenuScreen.id);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => DetailMenuScreen(menu: menu),
+                            ),
+                          );
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
