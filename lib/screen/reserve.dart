@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:seatbuddy/api/reservation_api.dart';
+import 'package:seatbuddy/api/user_api.dart';
 import 'package:seatbuddy/utils/custom_elevated_button.dart';
+import 'package:seatbuddy/utils/custom_form_text_field.dart';
 
 class ReserveScreen extends StatefulWidget {
   const ReserveScreen({super.key});
@@ -10,10 +13,12 @@ class ReserveScreen extends StatefulWidget {
 }
 
 class _ReserveScreenState extends State<ReserveScreen> {
+  final TextEditingController _notesController = TextEditingController();
   final PageController _controller = PageController();
   final List<String> imgList = [
-    'assets/images/logo.png',
-    'assets/images/splash.png',
+    'assets/images/interior.png',
+    'assets/images/interior2.png',
+    'assets/images/interior3.png',
   ];
   int _currentPage = 0;
   DateTime? _selectedDate;
@@ -56,6 +61,13 @@ class _ReserveScreenState extends State<ReserveScreen> {
         );
       }
     }
+  }
+
+  @override
+  void dispose() {
+    _notesController.dispose();
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -270,7 +282,7 @@ class _ReserveScreenState extends State<ReserveScreen> {
                             SizedBox(width: 5),
                             SizedBox(
                               child: Text(
-                                _selectedDate == null
+                                _selectedTime == null
                                     ? 'Time'
                                     : _selectedTime!.format(context),
                                 style: TextStyle(fontSize: 10),
@@ -327,7 +339,57 @@ class _ReserveScreenState extends State<ReserveScreen> {
               ),
             ),
             SizedBox(height: 30),
-            CustomElevatedButton(text: 'Reserve'),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 50),
+              child: CustomFormTextField(
+                controller: _notesController,
+                title: 'Notes (Optional)',
+                hintText: 'Contoh: Meja dekat pintu',
+              ),
+            ),
+            SizedBox(height: 30),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CustomElevatedButton(
+                text: 'Reserve',
+                onPressed: () async {
+                  if (_selectedDate == null || _selectedTime == null) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Please select date and time')),
+                    );
+                    return;
+                  }
+
+                  // Gabungkan tanggal dan waktu jadi satu DateTime
+                  final DateTime reservedAt = DateTime(
+                    _selectedDate!.year,
+                    _selectedDate!.month,
+                    _selectedDate!.day,
+                    _selectedTime!.hour,
+                    _selectedTime!.minute,
+                  );
+
+                  final success = await ReservationApi().createReservation(
+                    reservedAt: reservedAt,
+                    guestCount: _selectedPeople,
+                    notes: _notesController.text
+                        .trim(), // Optional, bisa dinamis
+                  );
+
+                  if (success) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Reservasi berhasil dilakukan')),
+                    );
+                    await Future.delayed(Duration(seconds: 1));
+                    Navigator.pop(context);
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Gagal melakukan reservasi')),
+                    );
+                  }
+                },
+              ),
+            ),
           ],
         ),
       ),

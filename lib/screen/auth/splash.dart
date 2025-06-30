@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seatbuddy/screen/auth/landing.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:seatbuddy/screen/home.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -9,14 +11,23 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
-  void changePage() {
-    Future.delayed(Duration(seconds: 1), () async {
+  void changePage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('auth_token');
+    await Future.delayed(Duration(seconds: 1));
+    if (token != null) {
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        HomeScreen.id,
+        (route) => false,
+      );
+    } else {
       Navigator.pushNamedAndRemoveUntil(
         context,
         LandingScreen.id,
         (route) => false,
       );
-    });
+    }
   }
 
   @override

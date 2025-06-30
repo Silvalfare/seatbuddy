@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:seatbuddy/screen/detail_menu.dart';
 import 'package:seatbuddy/screen/profile/edit_profile.dart';
 import 'package:seatbuddy/screen/home.dart';
@@ -9,7 +10,9 @@ import 'package:seatbuddy/screen/auth/register.dart';
 import 'package:seatbuddy/screen/reserve.dart';
 import 'package:seatbuddy/screen/auth/splash.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDateFormatting('id_ID', null);
   runApp(const MyApp());
 }
 
