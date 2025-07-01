@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:seatbuddy/api/reservation_api.dart';
 import 'package:intl/intl.dart';
+import 'package:seatbuddy/api/reservation_api.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -72,10 +72,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                       final status = "Booked";
                       final waktuBuat = formatDate(item['created_at']);
                       final detail =
-                          "Reservasi untuk ${item['guest_count']} orang pada ${formatDate(item['reserved_at'])}" +
-                          (item['notes'].toString().isNotEmpty
-                              ? "\nCatatan: ${item['notes']}"
-                              : "");
+                          "Reservasi untuk ${item['guest_count']} orang pada ${formatDate(item['reserved_at'])}\n${item['notes'] == null || item['notes'].toString().isEmpty ? "Tidak ada catatan" : "Catatan: ${item['notes']}"}";
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
