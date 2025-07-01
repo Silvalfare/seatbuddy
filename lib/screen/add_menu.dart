@@ -1,13 +1,11 @@
 import 'dart:convert';
-import 'dart:io';
-import 'dart:math';
 
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'package:seatbuddy/api/endpoint.dart';
-import 'package:seatbuddy/api/menu_api.dart';
 import 'package:seatbuddy/model/menu/menu_model.dart';
+import 'package:seatbuddy/screen/home.dart';
 import 'package:seatbuddy/services/preference.dart';
 import 'package:seatbuddy/utils/custom_elevated_button.dart';
 import 'package:seatbuddy/utils/custom_form_text_field.dart';
@@ -118,7 +116,12 @@ class _AddMenuScreenState extends State<AddMenuScreen> {
             ),
           ),
         );
-        Navigator.pop(context, true);
+        // Navigator.pop(context, true);
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (_) => const HomeScreen()),
+          (route) => false,
+        );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Gagal: ${response.statusCode}")),

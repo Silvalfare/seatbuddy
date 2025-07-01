@@ -36,11 +36,43 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, true);
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
         actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text('Hapus Menu'),
+                  content: Text('Apakah Anda yakin ingin menghapus menu ini?'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: Text('Batal'),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        final success = await MenuApi.deleteMenu(menu.id);
+                        Navigator.pop(context);
+                        if (success) {
+                          Navigator.pop(context, true);
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Gagal menghapus menu')),
+                          );
+                        }
+                      },
+                      child: Text('Hapus'),
+                    ),
+                  ],
+                ),
+              );
+            },
+            icon: Icon(Icons.delete),
+          ),
           IconButton(
             onPressed: () async {
               final result = await Navigator.push(

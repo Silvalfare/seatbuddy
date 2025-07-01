@@ -141,13 +141,19 @@ class _ContentScreenState extends State<ContentScreen> {
                     itemBuilder: (context, index) {
                       final menu = menus[index];
                       return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
+                        onTap: () async {
+                          final result = await Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (_) => DetailMenuScreen(menu: menu),
                             ),
                           );
+
+                          if (result == true) {
+                            setState(() {
+                              _menus = MenuApi.fetchMenus();
+                            });
+                          }
                         },
                         child: Padding(
                           padding: const EdgeInsets.symmetric(
