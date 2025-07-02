@@ -35,7 +35,6 @@ class _AddMenuScreenState extends State<AddMenuScreen> {
       hargaController.text = widget.menu!.price.toString();
       deskripsiController.text = widget.menu!.description;
       if (widget.menu!.imageUrl.isNotEmpty) {
-        // Tidak bisa langsung dapat base64, jadi biarkan preview pakai NetworkImage
         base64Image = null;
       }
     }
