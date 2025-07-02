@@ -83,86 +83,86 @@ class LoginScreenState extends State<LoginScreen> {
           ),
           resizeToAvoidBottomInset: true,
           body: SafeArea(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(height: 48),
-                  Text(
-                    "Let's get you back in",
-                    style: TextStyle(
-                      fontFamily: 'segoeUI',
-                      fontSize: 19,
-                      fontWeight: FontWeight.bold,
+            child: Column(
+              children: [
+                SizedBox(height: 48),
+                Text(
+                  "Let's get you back in",
+                  style: TextStyle(
+                    fontFamily: 'segoeUI',
+                    fontSize: 19,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 30),
+                CustomFormTextField(
+                  controller: emailController,
+                  title: 'Email Address',
+                  hintText: 'bob@gmail.com',
+                ),
+                SizedBox(height: 20),
+                CustomFormTextField(
+                  controller: passwordController,
+                  title: 'Password',
+                  obscureText: !isVisible,
+                  hintText: '********',
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        isVisible = !isVisible;
+                      });
+                    },
+                    icon: Icon(
+                      isVisible ? Icons.visibility_off : Icons.visibility,
+                      size: 20,
                     ),
                   ),
-                  SizedBox(height: 30),
-                  CustomFormTextField(
-                    controller: emailController,
-                    title: 'Email Address',
-                    hintText: 'bob@gmail.com',
-                  ),
-                  SizedBox(height: 20),
-                  CustomFormTextField(
-                    controller: passwordController,
-                    title: 'Password',
-                    obscureText: !isVisible,
-                    hintText: '********',
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          isVisible = !isVisible;
-                        });
-                      },
-                      icon: Icon(
-                        isVisible ? Icons.visibility_off : Icons.visibility,
-                        size: 20,
+                ),
+                SizedBox(height: 30),
+                CustomElevatedButton(
+                  text: 'Login',
+                  onPressed: () async {
+                    Login();
+                  },
+                ),
+                SizedBox(height: 20),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Don't have an account?",
+                      style: TextStyle(
+                        color: Color(0xff5E5E5E),
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'segoeUI',
+                        fontSize: 17,
                       ),
                     ),
-                  ),
-                  SizedBox(height: 30),
-                  CustomElevatedButton(
-                    text: 'Login',
-                    onPressed: () async {
-                      Login();
-                    },
-                  ),
-                  SizedBox(height: 20),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Don't have an account?",
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(builder: (_) => RegisterScreen()),
+                        );
+                      },
+                      child: Text(
+                        'Sign Up',
                         style: TextStyle(
-                          color: Color(0xff5E5E5E),
+                          decoration: TextDecoration.underline,
+                          color: Colors.black,
                           fontWeight: FontWeight.bold,
                           fontFamily: 'segoeUI',
                           fontSize: 17,
                         ),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (_) => RegisterScreen()),
-                          );
-                        },
-                        child: Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: 'segoeUI',
-                            fontSize: 17,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 240),
-                  Image.asset('assets/images/Frame.png'),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                // SizedBox(height: 240),
+                Spacer(),
+                Image.asset('assets/images/Frame.png'),
+                SizedBox(height: 10),
+              ],
             ),
           ),
         ),

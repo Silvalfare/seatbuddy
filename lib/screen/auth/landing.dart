@@ -68,8 +68,10 @@ class _LandingScreenState extends State<LandingScreen> {
               ),
             ),
           ),
-          SizedBox(height: 200),
+          // SizedBox(height: 200),
+          Spacer(),
           Image.asset('assets/images/Group.png'),
+          SizedBox(height: 20),
         ],
       ),
     );
