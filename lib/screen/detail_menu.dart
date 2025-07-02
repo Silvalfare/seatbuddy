@@ -76,19 +76,11 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
             },
             icon: Icon(Icons.delete, color: Colors.red),
           ),
-          IconButton(
-            onPressed: () async {
-              final result = await Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => AddMenuScreen(menu: menu)),
-              );
-              if (result == true) {
-                await _refreshMenu();
-              }
-            },
-            icon: Icon(Icons.edit),
-          ),
         ],
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1),
+          child: Divider(indent: 15, endIndent: 15, color: Colors.black),
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,6 +122,19 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
             child: Text(menu.description, style: TextStyle(fontSize: 16)),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.black,
+        onPressed: () async {
+          final result = await Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => AddMenuScreen(menu: menu)),
+          );
+          if (result == true) {
+            await _refreshMenu();
+          }
+        },
+        child: Icon(Icons.edit, color: Colors.white),
       ),
     );
   }

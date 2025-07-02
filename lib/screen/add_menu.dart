@@ -145,6 +145,10 @@ class _AddMenuScreenState extends State<AddMenuScreen> {
           },
           icon: Icon(Icons.arrow_back_ios),
         ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(1),
+          child: Divider(indent: 15, endIndent: 15, color: Colors.black),
+        ),
       ),
       body: Form(
         key: _formkey,
