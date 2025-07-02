@@ -51,7 +51,10 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
                   actions: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: Text('Batal'),
+                      child: Text(
+                        'Batal',
+                        style: TextStyle(color: Colors.black),
+                      ),
                     ),
                     TextButton(
                       onPressed: () async {
@@ -65,13 +68,13 @@ class _DetailMenuScreenState extends State<DetailMenuScreen> {
                           );
                         }
                       },
-                      child: Text('Hapus'),
+                      child: Text('Hapus', style: TextStyle(color: Colors.red)),
                     ),
                   ],
                 ),
               );
             },
-            icon: Icon(Icons.delete),
+            icon: Icon(Icons.delete, color: Colors.red),
           ),
           IconButton(
             onPressed: () async {

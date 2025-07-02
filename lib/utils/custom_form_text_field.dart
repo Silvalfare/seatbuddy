@@ -38,7 +38,7 @@ class CustomFormTextField extends StatelessWidget {
           height: 40,
           width: 311,
           child: TextFormField(
-            autovalidateMode: AutovalidateMode.onUnfocus,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: controller,
             obscureText: obscureText,
             validator: validator,
@@ -53,6 +53,7 @@ class CustomFormTextField extends StatelessWidget {
               hintText: hintText,
               hintStyle: TextStyle(color: Color(0xffCECECE)),
               filled: true,
+
               fillColor: Colors.white,
               border: OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.black),

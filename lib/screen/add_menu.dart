@@ -215,6 +215,12 @@ class _AddMenuScreenState extends State<AddMenuScreen> {
               Padding(
                 padding: const EdgeInsets.only(left: 50, top: 10),
                 child: CustomFormTextField(
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Deskripsi wajib diisi';
+                    }
+                    return null;
+                  },
                   controller: deskripsiController,
                   title: 'Deskripsi',
                 ),

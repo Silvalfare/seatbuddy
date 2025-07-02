@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:seatbuddy/api/reservation_api.dart';
-import 'package:seatbuddy/screen/reserve.dart';
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -117,11 +116,17 @@ class _HistoryScreenState extends State<HistoryScreen> {
                                     ),
                                     actions: [
                                       TextButton(
-                                        child: Text('Tidak'),
+                                        child: Text(
+                                          'Tidak',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
                                         onPressed: () => Navigator.pop(context),
                                       ),
                                       TextButton(
-                                        child: Text('Ya'),
+                                        child: Text(
+                                          'Ya',
+                                          style: TextStyle(color: Colors.red),
+                                        ),
                                         onPressed: () {
                                           Navigator.pop(context);
                                           cancelBooking(item['id']);

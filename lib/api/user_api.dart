@@ -1,18 +1,13 @@
-import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:seatbuddy/api/endpoint.dart';
-import 'package:seatbuddy/api/reservation_api.dart';
 import 'package:seatbuddy/model/auth/login/login_error_params.dart';
 import 'package:seatbuddy/model/auth/login/login_response.dart';
 import 'package:seatbuddy/model/auth/register/register_error_params.dart';
 import 'package:seatbuddy/model/auth/register/register_response.dart';
 import 'package:seatbuddy/model/profile/no_token_response.dart';
 import 'package:seatbuddy/model/profile/profile_response.dart';
-import 'package:seatbuddy/model/reservation/reservation_list.dart';
 import 'package:seatbuddy/services/preference.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
   Future<Map<String, dynamic>> registerUser({
